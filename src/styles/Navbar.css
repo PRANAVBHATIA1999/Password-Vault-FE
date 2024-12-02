@@ -7,10 +7,28 @@
   color: #fff;
 }
 
+.navbar-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .navbar-logo {
   font-size: 1.5rem;
-  color: #fff;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-logo a {
   text-decoration: none;
+  color: white;
+}
+
+.navbar-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .navbar-links {
@@ -68,3 +86,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adjust shadow */
 }
 
+.new-clr {
+
+  background-color: darkorange;
+  
+
+}

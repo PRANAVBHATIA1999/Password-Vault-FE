@@ -81,13 +81,13 @@
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 40px;
-    height: 80px;
-    width: 200px;
+    height: 60px;
+    width: 190px;
   }
   
   .add-app-button:hover {

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/user/userSlice';
+import logo from '../assets/logo.png';
+
 import '../styles/Navbar.css';
 
 const Navbar = () => {
@@ -20,15 +22,26 @@ const Navbar = () => {
     navigate('/dashboard'); // Redirect to dashboard page
   };
 
-    const handleAdminControls = () => {
+  const handleAdminControls = () => {
     navigate('/admin'); // Redirect to admin page
-    };
+  };
+
+  const handleAdminDashboard = () => {
+    navigate('/admindashboard'); // Redirect to admin dashboard page
+  };
 
   return (
     <nav className="navbar">
-      <h1 className="navbar-logo">
-        <Link to="/">Access Avengers</Link>
-      </h1>
+      <div className="navbar-logo-container">
+        <img
+          src={logo} // Replace this with the path to your actual logo
+          alt="Access Avengers Logo"
+          className="navbar-logo-img"
+        />
+        <h1 className="navbar-logo">
+          <Link to="/">Access Avengers</Link>
+        </h1>
+      </div>
       <ul className="navbar-links">
         {user ? (
           <>
@@ -36,6 +49,14 @@ const Navbar = () => {
               <li>
                 <button className="dashboard-button" onClick={handleAdminControls}>
                   Admin Controls
+                </button>
+              </li>
+            )}
+
+            {userType === 'admin' && (
+              <li>
+                <button className="dashboard-button new-clr" onClick={handleAdminDashboard}>
+                  Admin Dashboard
                 </button>
               </li>
             )}
