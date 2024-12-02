@@ -1,0 +1,68 @@
+.admin-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .admin-dashboard h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .admin-dashboard h2 {
+    font-size: 1.8rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .logs-table th,
+  .logs-table td {
+    text-align: left;
+    padding: 1rem;
+    border: 1px solid #ddd;
+  }
+  
+  .logs-table th {
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  .logs-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .logs-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .logs-table td {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    padding: 2rem;
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #d9534f;
+    padding: 2rem;
+  }
+  

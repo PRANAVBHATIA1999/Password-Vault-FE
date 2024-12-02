@@ -6,6 +6,7 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import Admin from './components/Admin';
+import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          
         </Routes>
       </div>
     </Router>

@@ -4,67 +4,68 @@ import { loginUser, reset } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-  const { email, password } = formData;
+    const { email, password } = formData;
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+        (state) => state.user
+    );
 
-  useEffect(() => {
-    if (isSuccess && user) {
-      navigate('/dashboard'); // Navigate to a dashboard or home page
-    }
+    useEffect(() => {
+        if (isSuccess && user) {
 
-    if (isError) {
-      alert(message);
-    }
+            user.userType === 'admin' ? navigate('/admindashboard') : navigate('/dashboard'); // Navigate to a dashboard or home page
+        }
 
-    dispatch(reset());
-  }, [user, isLoading, isError, isSuccess, message, navigate, dispatch]);
+        if (isError) {
+            alert(message);
+        }
 
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+        dispatch(reset());
+    }, [user, isLoading, isError, isSuccess, message, navigate, dispatch]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser(formData));
-  };
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={onSubmit}>
-        <h2>Login</h2>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          placeholder="Email"
-          onChange={onChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Password"
-          onChange={onChange}
-          required
-        />
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Login'}
-        </button>
-      </form>
-    </div>
-  );
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(loginUser(formData));
+    };
+
+    return (
+        <div className="login-container">
+            <form className="login-form" onSubmit={onSubmit}>
+                <h2>Login</h2>
+                <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    placeholder="Email"
+                    onChange={onChange}
+                    required
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={onChange}
+                    required
+                />
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Loading...' : 'Login'}
+                </button>
+            </form>
+        </div>
+    );
 };
 
 export default Login;

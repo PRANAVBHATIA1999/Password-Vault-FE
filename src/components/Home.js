@@ -1,11 +1,17 @@
 import React from 'react';
 import '../styles/Home.css';
+import logo from '../assets/logo.png';
+import image1 from '../assets/image1.png';
+import image2 from '../assets/image2.png';
+
 
 const Home = () => {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="logo-placeholder">Your Logo</div>
+        <div className="logo-placeholder">
+          <img className='home-logo' src={logo} alt="Secure Password Vault Logo" />
+        </div>
         <h1 className="home-title">Welcome to Secure Password Vault</h1>
         <p className="home-subtitle">
           Your secure, user-friendly solution to manage passwords efficiently within your organization.
@@ -20,8 +26,12 @@ const Home = () => {
           Designed for enterprises, it enables administrators to monitor access and set precise controls for their workforce.
         </p>
         <div className="feature-images">
-          <div className="feature-placeholder">[Insert Image 1]</div>
-          <div className="feature-placeholder">[Insert Image 2]</div>
+          <div className="feature-placeholder">
+            <img className='home-logo' src={image1} alt="Feature 1" />
+          </div>
+          <div className="feature-placeholder">
+            <img className='home-logo' src={image2} alt="Feature 2" />
+          </div>
         </div>
       </section>
 

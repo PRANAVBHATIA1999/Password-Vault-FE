@@ -32,12 +32,37 @@ const Dashboard = () => {
     fetchVaultData();
   }, []);
 
-  // Toggle password visibility
-  const togglePasswordVisibility = (id) => {
+  // Toggle password visibility and log the event
+  const togglePasswordVisibility = async (entry) => {
+    const { _id, appName, appUserName } = entry;
+
+    // Toggle visibility state
     setVisiblePasswords((prevState) => ({
       ...prevState,
-      [id]: !prevState[id],
+      [_id]: !prevState[_id],
     }));
+
+    // Log the password view event if making the password visible
+    if (!visiblePasswords[_id]) {
+      try {
+        const token = localStorage.getItem('token');
+        await axios.post(
+          'http://localhost:3000/api/vault/create',
+          {
+            userName: appUserName,
+            appName,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(`Log created for ${appUserName} viewing ${appName}`);
+      } catch (error) {
+        console.error('Error logging password view:', error);
+      }
+    }
   };
 
   // Toggle Modal
@@ -95,7 +120,7 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {vaultData.map((entry, index) => (
+          {vaultData.map((entry) => (
             <tr
               key={entry._id}
               style={{
@@ -116,7 +141,7 @@ const Dashboard = () => {
                     : '********'}
                   <button
                     className="toggle-password"
-                    onClick={() => togglePasswordVisibility(entry._id)}
+                    onClick={() => togglePasswordVisibility(entry)}
                   >
                     {visiblePasswords[entry._id] ? '🙈' : '👁️'}
                   </button>
