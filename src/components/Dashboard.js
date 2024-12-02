@@ -5,6 +5,13 @@ import '../styles/Dashboard.css';
 const Dashboard = () => {
   const [vaultData, setVaultData] = useState([]);
   const [visiblePasswords, setVisiblePasswords] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    appName: '',
+    appURL: '',
+    appUserName: '',
+    appPassword: '',
+  });
 
   // Fetch vault data
   useEffect(() => {
@@ -31,6 +38,48 @@ const Dashboard = () => {
       ...prevState,
       [id]: !prevState[id],
     }));
+  };
+
+  // Toggle Modal
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  // Handle Form Input Changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem('token'); // Get token from localStorage
+      const response = await axios.post('http://localhost:3000/api/vault/add', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      alert('App added successfully!');
+      setShowModal(false); // Close modal after success
+      setFormData({
+        appName: '',
+        appURL: '',
+        appUserName: '',
+        appPassword: '',
+      });
+
+      // Refresh the table data
+      setVaultData((prevData) => [...prevData, response.data]);
+    } catch (error) {
+      console.error('Error adding app:', error);
+      alert('Failed to add app. Please try again.');
+    }
   };
 
   return (
@@ -77,6 +126,66 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
+
+      <button className="add-app-button" onClick={toggleModal}>
+        Add New App
+      </button>
+
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Add New App</h2>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="appName">App Name</label>
+              <input
+                type="text"
+                id="appName"
+                name="appName"
+                value={formData.appName}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="appURL">App URL</label>
+              <input
+                type="url"
+                id="appURL"
+                name="appURL"
+                value={formData.appURL}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="appUserName">App User Name</label>
+              <input
+                type="text"
+                id="appUserName"
+                name="appUserName"
+                value={formData.appUserName}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="appPassword">App Password</label>
+              <input
+                type="password"
+                id="appPassword"
+                name="appPassword"
+                value={formData.appPassword}
+                onChange={handleChange}
+                required
+              />
+
+              <button type="submit" className="submit-button">
+                Add App
+              </button>
+              <button type="button" className="cancel-button" onClick={toggleModal}>
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
