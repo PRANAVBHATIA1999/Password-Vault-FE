@@ -1,8 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userService from './userServices';
 
+const token = localStorage.getItem('token');
+const userType = localStorage.getItem('userType');
+
+
+// Helper function to decode token (if needed for initialization)
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
+
 const initialState = {
-  user: null,
+  user: token ? { ...parseJwt(token), token, userType } : null, // Initialize user from localStorage token
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -24,12 +37,16 @@ export const signupUser = createAsyncThunk(
   }
 );
 
-// Async thunk for logging in a user (example)
+// Async thunk for logging in a user
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (userData, thunkAPI) => {
     try {
       const response = await userService.loginUser(userData);
+
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('userType', response.userType);
+
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -39,7 +56,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Async thunk for fetching the user profile (example)
+// Async thunk for fetching the user profile
 export const fetchProfile = createAsyncThunk(
   'user/fetchProfile',
   async (_, thunkAPI) => {
@@ -65,8 +82,10 @@ const userSlice = createSlice({
       state.message = '';
     },
     logout: (state) => {
-      state.user = null;
-      localStorage.removeItem('token');
+      state.user = null; // Clear user state
+      localStorage.removeItem('token'); // Remove token from localStorage
+      localStorage.removeItem('userType'); // Remove userType
+
     },
   },
   extraReducers: (builder) => {
@@ -95,6 +114,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
+        state.user = { ...action.payload, userType: action.payload.userType }; // Include userType in user state
         localStorage.setItem('token', action.payload.token); // Save token to localStorage
       })
       .addCase(loginUser.rejected, (state, action) => {

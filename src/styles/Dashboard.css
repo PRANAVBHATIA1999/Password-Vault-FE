@@ -1,5 +1,5 @@
 .dashboard-container {
-    display: flex;
+    padding-top: 50px;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -10,5 +10,69 @@
   .dashboard-container h1 {
     font-size: 2.5rem;
     color: #333;
+  }
+  
+
+  .dashboard-container {
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .vault-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vault-table th,
+  .vault-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  .vault-table th {
+    background-color: #f4f4f4;
+    color: #555;
+  }
+  
+  .vault-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .password-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .toggle-password {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .toggle-password:hover {
+    color: #000;
+  }
+  
+  a {
+    color: #1a73e8;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
   }
   

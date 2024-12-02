@@ -6,9 +6,17 @@ const registerUser = async (userData) => {
 };
 
 // Login user (example endpoint)
+// const loginUser = async (userData) => {
+//   return await userAPI.loginUser(userData);
+// };
+
+
 const loginUser = async (userData) => {
-  return await userAPI.loginUser(userData);
-};
+    const response = await userAPI.loginUser(userData);
+  
+    // Return the complete response, including userType
+    return response;
+  };
 
 // Get user profile (example endpoint)
 const getProfile = async () => {

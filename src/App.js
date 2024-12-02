@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+import Home from './components/Home';
+import Admin from './components/Admin';
 import './App.css';
 
 function App() {
@@ -12,10 +14,11 @@ function App() {
       <Navbar />
       <div className="app-container">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
-
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </Router>

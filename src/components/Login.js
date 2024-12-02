@@ -20,7 +20,6 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && user) {
-      alert('Login Successful!');
       navigate('/dashboard'); // Navigate to a dashboard or home page
     }
 
